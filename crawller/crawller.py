@@ -7,6 +7,8 @@ import os
 import sys
 import json
 
+HOME_DIR = "../"
+
 def printProgress (iteration, total, prefix = '', suffix = '', decimals = 1, barLength = 100): 
     formatStr = "{0:." + str(decimals) + "f}"
     percent = formatStr.format(100 * (iteration / float(total)))
@@ -17,14 +19,15 @@ def printProgress (iteration, total, prefix = '', suffix = '', decimals = 1, bar
         sys.stdout.write('\n')
     sys.stdout.flush()
 
+# check if settings.json exists
 if "settings.json" not in os.listdir("../"):
     print("CANNOT FIND SETTING FILE: 'settings.json'")
     sys.exit(0)
 
+# load settings.json
 with open("../settings.json", "r") as jsonFile:
     settings = json.load(jsonFile)
 
-# load setting file
 number_of_files = settings["number_of_files"]
 class_id = settings["class_id"]
 items = settings["items"]
@@ -34,6 +37,8 @@ option = Options()
 option.add_argument('--headless')
 driver = webdriver.Chrome(options=option)
 
+# crawl images from google image
+# all items are located in their class names
 for item in items:
 
     print("LOADING URL ...")
@@ -64,12 +69,12 @@ for item in items:
         except KeyError:
             imgurl.append(i.attrs['data-src'])
 
-    dirlist = os.listdir()
-    if "crawlled_images" not in dirlist:
-        os.mkdir("crawlled_images/")
+    dirlist = os.listdir(HOME_DIR)
+    if "dataset" not in dirlist:
+        os.mkdir(HOME_DIR+"dataset")
 
-    if str(settings["items"][item]) not in os.listdir("crawlled_images/"):
-        os.mkdir("crawlled_images/"+str(settings["items"][item]))
+    if str(settings["items"][item]) not in os.listdir(HOME_DIR+"dataset"):
+        os.mkdir(HOME_DIR+"dataset/"+str(settings["items"][item]))
 
     print("Downloading {}".format(item))
 
@@ -79,7 +84,7 @@ for item in items:
         if iteration >= number_of_files:
             break
         
-        savePath = os.path.join("./crawlled_images/"+str(settings["items"][item]), str(iteration)+".jpg")
+        savePath = os.path.join("../dataset/"+str(settings["items"][item]), str(iteration)+".jpg")
         urlretrieve(imageFile, savePath)
         iteration+=1
         printProgress(iteration, number_of_files, "Downloading:", "Complete", 1, 50)
