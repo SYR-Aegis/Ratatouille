@@ -17,11 +17,11 @@ def printProgress (iteration, total, prefix = '', suffix = '', decimals = 1, bar
         sys.stdout.write('\n')
     sys.stdout.flush()
 
-if "settings.json" not in os.listdir():
+if "settings.json" not in os.listdir("../"):
     print("CANNOT FIND SETTING FILE: 'settings.json'")
     sys.exit(0)
 
-with open("settings.json", "r") as jsonFile:
+with open("../settings.json", "r") as jsonFile:
     settings = json.load(jsonFile)
 
 # load setting file
