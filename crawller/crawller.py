@@ -73,8 +73,8 @@ for item in items:
     if "dataset" not in dirlist:
         os.mkdir(HOME_DIR+"dataset")
 
-    if str(settings["items"][item]) not in os.listdir(HOME_DIR+"dataset"):
-        os.mkdir(HOME_DIR+"dataset/"+str(settings["items"][item]))
+    if str(settings["items"][item]) not in os.listdir(HOME_DIR+"dataset/data/"):
+        os.mkdir(HOME_DIR+"dataset/data/")
 
     print("Downloading {}".format(item))
 
@@ -84,7 +84,7 @@ for item in items:
         if iteration >= number_of_files:
             break
         
-        savePath = os.path.join("../dataset/"+str(settings["items"][item]), str(iteration)+".jpg")
+        savePath = os.path.join("../dataset/data",str(settings["items"][item])+str(iteration)+".jpg")
         urlretrieve(imageFile, savePath)
         iteration+=1
         printProgress(iteration, number_of_files, "Downloading:", "Complete", 1, 50)
