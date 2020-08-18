@@ -20,9 +20,9 @@ from object_detection.utils import dataset_util
 from collections import namedtuple, OrderedDict
 
 flags = tf.app.flags
-flags.DEFINE_string('csv_input', '', 'Path to the CSV input')
-flags.DEFINE_string('output_path', '', 'Path to output TFRecord')
-flags.DEFINE_string('img_dir', './data/', 'Path to images')
+flags.DEFINE_string('csv_input', './labels.csv', 'Path to the CSV input')
+flags.DEFINE_string('output_path', './train.record', 'Path to output TFRecord')
+flags.DEFINE_string('img_dir', './imgs/', 'Path to images')
 FLAGS = flags.FLAGS
 
 # add class labels
@@ -173,7 +173,7 @@ def main(_):
     for group in grouped:
 
         try:
-            tf_record = create_tf_record(group, path)
+            tf_example = create_tf_record(group, path)
             writer.write(tf_example.SerializeToString())
         except:
             file_errors += 1
