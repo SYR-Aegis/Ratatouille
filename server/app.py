@@ -9,12 +9,14 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 #파일 확장자 검사
+
 def allowed_file(filename):
     ext = os.path.splitext(filename)[-1].lower()
     if ext in ALLOWED_EXTENSIONS:
         return True
     else:
-        return False
+        return True
+
 
 #url 요청 
 @app.route('/GetRecipe', methods=['GET','POST'])
@@ -26,7 +28,7 @@ def GetRecipe():
         # check if the post request has the file part
         #파일 필드 검사
         if 'file' not in request.files:
-            response["success"] = False
+            response["success"] = 0
             response["msg"] = "no part file"
             return str(response)
         file = request.files['file']
@@ -34,7 +36,7 @@ def GetRecipe():
         # submit a empty part without filename
         #파일 이름 검사
         if file.filename == '':
-            response["success"] = False
+            response["success"] = 0
             response["msg"] = "no selected file"
             return str(response)
 
@@ -43,16 +45,16 @@ def GetRecipe():
             filename = secure_filename(file.filename)
             #일단 저장
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            response["success"] = True
+            response["success"] = 1
             #추후 msg에 레시피 링크 넘김
             response["msg"] = "success"
             return str(response)
         else:
-            response["success"] = False
+            response["success"] = 0
             response["msg"] = "invalid externsion."
             return str(response)
     else:
-        response["success"] = False
+        response["success"] = 0
         response["msg"] = "using POST method"
         return str(response)
 
