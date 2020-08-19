@@ -47,7 +47,8 @@ def get_recipe(PATH_TO_IMG: str):
     if not os.path.isfile(PATH_TO_IMG):
         return "File not found error", 1
 
-    recipe_url = "https://www.haemukja.com/recipes?utf8=%E2%9C%93&sort=rlv&name="
+    #recipe_url = "https://www.haemukja.com/recipes?utf8=%E2%9C%93&sort=rlv&name="
+    recipe_url = "https://m.haemukja.com/#/search?keyword="
 
     with detection_graph.as_default():
         with tf.compat.v1.Session(graph=detection_graph) as sess:
@@ -108,4 +109,4 @@ def get_recipe(PATH_TO_IMG: str):
 
             return recipe_url[:-1], 0
 
-print(get_recipe("test.jpeg"))
+#print(get_recipe("test.jpeg"))
