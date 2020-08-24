@@ -29,7 +29,7 @@ def GetRecipe():
         # check if the post request has the file part
         #파일 필드 검사
         if 'file' not in request.files:
-            response["success"] = 0
+            response["success"] = "false"
             response["msg"] = "no part file"
             return str(response)
         file = request.files['file']
@@ -37,7 +37,7 @@ def GetRecipe():
         # submit a empty part without filename
         #파일 이름 검사
         if file.filename == '':
-            response["success"] = 0
+            response["success"] = "false"
             response["msg"] = "no selected file"
             return str(response)
 
@@ -46,17 +46,18 @@ def GetRecipe():
             filename = secure_filename(file.filename)
             #일단 저장
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            result = inference.get_recipe('test.jpg')
-            response["success"] = 1
+            print("file name : " + filename)
+            result = inference.get_recipe(filename)
+            response["success"] = "true"
             #추후 msg에 레시피 링크 넘김
             response["msg"] = result[0]
             return str(response)
         else:
-            response["success"] = 0
+            response["success"] = "false"
             response["msg"] = "invalid externsion."
             return str(response)
     else:
-        response["success"] = 0
+        response["success"] = "false"
         response["msg"] = "using POST method"
         return str(response)
 
