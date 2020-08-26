@@ -48,9 +48,15 @@ def GetRecipe():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             print("file name : " + filename)
             result = inference.get_recipe(filename)
+            print(result)
             response["success"] = "true"
             #추후 msg에 레시피 링크 넘김
-            response["msg"] = result[0]
+            if result[1] == 0:
+                response["success"] = "true"
+                response["msg"] = result[0] 
+            else:
+                response["success"] = "false"
+                response["msg"] = result[0]
             return str(response)
         else:
             response["success"] = "false"
