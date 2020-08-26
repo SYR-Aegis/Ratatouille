@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="HelloXamarin.MainPage">
+
+    <ContentPage.Resources>
+        <Style TargetType="Button">
+            <Setter Property="FontAttributes" Value="Bold, Italic" />
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="FontAttributes" Value="Bold, Italic" />
+        </Style>
+        <Style TargetType="Grid">
+            <Setter Property="ColumnSpacing" Value="0" />
+            <Setter Property="RowSpacing" Value="0" />
+        </Style>
+    </ContentPage.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="20*"/>
+        </Grid.RowDefinitions>
+
+        <!--사진 찍는 곳이나 파일 가지고 오기 -->
+        <Grid Grid.Row="0" BackgroundColor="LightGray">
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="70*"/>
+            </Grid.RowDefinitions>
+            
+            <Grid Grid.Row="0" BackgroundColor="Gray">
+                <StackLayout>
+                    <Label Text="재료를 찍어 레시피를 추천받으세요."
+                           HorizontalOptions="Center" VerticalOptions="CenterAndExpand"
+                           FontSize="20" TextColor="White"/>
+                </StackLayout>
+            </Grid>
+                
+            <Grid Grid.Row="1">
+                <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label Text="Take a your food ingredients using under camera button." 
+                           FontFamily="Italy" FontSize="20"  Margin="10" TextColor="Gray"/>
+                    <Label Text="Then, Send your image file to server." 
+                           FontFamily="Italy" FontSize="20" Margin="10" TextColor="Gray"/>
+                    <Label Text="If you want to get food recipe, click right button." 
+                           FontFamily="Italy" FontSize="20" Margin="10" TextColor="Gray"/>
+                </StackLayout>
+                <Image Source="{Binding FoodImage}"
+                       Aspect="AspectFill"
+                       />
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="20*"/>
+            </Grid.RowDefinitions>
+            
+            <Grid Grid.Row="0" BackgroundColor="AliceBlue">
+                <StackLayout>
+                    <Label Text="Click Recipe Button"
+                           HorizontalOptions="Center" VerticalOptions="CenterAndExpand"
+                           FontSize="20" TextColor="Orange" FontAttributes="Italic"/>
+                </StackLayout>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- send picture-->
+                <Grid Grid.Column="0" IsVisible="{Binding OnRecipe}">
+                    <ImageButton HorizontalOptions="Center" VerticalOptions="CenterAndExpand"
+                            Command="{Binding SendPicture}" Source="sendmessage.png" BackgroundColor="Transparent"
+                                 HeightRequest="70" WidthRequest="70"/>
+                </Grid>
+                <!-- camera open -->
+                <Grid Grid.Column="1">
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                        <ImageButton x:Name="takePhoto"  HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Command="{Binding OpenCamera}"
+                        Source="caca.png" BackgroundColor="Transparent" HeightRequest="70" WidthRequest="70"/>
+                    </StackLayout>
+                </Grid>
+                <!-- get recipe -->
+                <Grid Grid.Column="2" IsVisible="{Binding OnRecipe}">
+                    <ImageButton HorizontalOptions="Center" VerticalOptions="CenterAndExpand"
+                            Command="{Binding GetRecipe}" Source="recipe.png" BackgroundColor="Transparent"
+                                 HeightRequest="70" WidthRequest="70"/>
+                </Grid>
+            </Grid>
+        </Grid>
+        
+    </Grid>
+
+</ContentPage>
