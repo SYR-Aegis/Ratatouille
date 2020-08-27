@@ -6,22 +6,6 @@ A recipe recomendation system.
 1. Ubuntu 16.04
 2. python3.5
 
-## System structure
-
-	Home_dir
-    -> crawller
-    ->-> crawller.py
-    
-    -> dataset
-    ->-> xmls
-    ->-> labels.csv
-    
-    -> object_detection
-    -> slim
-    
-    -> install.sh
-    -> settings.json
-
 ## Usage
 
 ### Tutorials
