@@ -33,6 +33,9 @@ After the installation process, make sure to add the directories to the PYTHONPA
 You need to add this line everytime you open a new terminal.  
 Adding this line to bashrc would be better.  
 In that case, change `pwd` with the absolute path.  
+Then, run runserver.py to run the server.
+
+	python3 runserver.py
 
 ### How to crawl images
 settings.json contains all the information about the crawlling.
