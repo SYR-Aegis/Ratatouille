@@ -104,7 +104,14 @@ namespace HelloXamarin
                 //var res = await App.Current.MainPage.DisplayAlert(json["success"].ToString(), json["msg"].ToString(), "Ok", "Cancel");
                 recipe_url = json["msg"].ToString();
                 url_ok = bool.Parse(json["success"].ToString());
-                msgbox("Successfully receiving data.");
+                if(url_ok == false)
+                {
+                    msgbox("onemore time take a picture.");
+                } else
+                {
+                    msgbox("Successfully");
+                }
+                //msgbox("Successfully receiving data.");
                 //그리고 Get Recipe버튼 눌러서 레시피 가지고 오기   
             }
             catch (HttpRequestException e)
